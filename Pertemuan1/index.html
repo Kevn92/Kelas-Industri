@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Output JavaScript </title>
+</head>
+<body>
+
+    <div id="output1"></div>
+    <div id="output2"></div>
+
+    <script>
+
+        //1.menggoutput ke console
+        console.log("Hello World")
+
+        //2.mengoutput ke Web
+        var output = document.getElementById("output1")
+        output.innerHTML =  "<h1>Hello World </h1>"
+        console.log(output)
+        document.getElementById("output2").innerHTML = "<h2> <i> output ke dua"
+
+        //3.Mengoutput ke Web (Lagi)
+        document.write("<h3> Halo Nama Saya Kevin")
+
+        //4.Menampilkan Pop up
+        alert("Halo Kevin")
+    </script>
+</body>
+</html>

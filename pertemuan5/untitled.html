@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kotak Curhat BK | Konseling Online</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-light: #4895ef;
+      --secondary: #3a0ca3;
+      --success: #4cc9f0;
+      --danger: #f72585;
+      --warning: #fca311;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --gradient-start: #4361ee;
+      --gradient-end: #3a0ca3;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: var(--transition);
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--dark);
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Background Animation */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.5;
+    }
+    
+    .bg-bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      opacity: 0.2;
+      animation: float 15s infinite ease-in-out;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(10deg); }
+    }
+    
+    .container {
+      background: var(--card-bg);
+      padding: 35px;
+      border-radius: 24px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(12px);
+      animation: fadeIn 0.6s ease-out;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end), var(--primary-light));
+      border-radius: 0 0 5px 5px;
+    }
+    
+    h2 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 12px;
+      font-size: 28px;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+      border-radius: 4px;
+    }
+    
+    h3 {
+      color: var(--secondary);
+      margin: 20px 0 15px;
+      font-weight: 600;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 16px 20px;
+      margin: 12px 0;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      font-size: 16px;
+      background: #f8fafc;
+      font-family: 'Poppins', sans-serif;
+      transition: var(--transition);
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
+      transform: translateY(-3px);
+    }
+    
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+    
+    button {
+      width: 100%;
+      padding: 17px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      color: white;
+      box-shadow: 0 6px 12px rgba(67, 97, 238, 0.25);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: all 0.7s;
+    }
+    
+    button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(67, 97, 238, 0.35);
+    }
+    
+    button:hover::before {
+      left: 100%;
+    }
+    
+    button:active {
+      transform: translateY(2px);
+      box-shadow: 0 4px 8px rgba(67, 97, 238, 0.4);
+    }
+    
+    .btn-danger {
+      background: linear-gradient(135deg, #f72585, #b5179e);
+      box-shadow: 0 6px 12px rgba(247, 37, 133, 0.25);
+    }
+    
+    .btn-danger:hover {
+      box-shadow: 0 10px 20px rgba(247, 37, 133, 0.35);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      box-shadow: none;
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .message {
+      border-radius: 18px;
+      padding: 20px;
+      margin: 18px 0;
+      background: white;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      border-left: 5px solid var(--primary);
+      animation: slideIn 0.4s ease-out;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .message::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+      opacity: 0.7;
+    }
+    
+    .message:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    .reply {
+      margin-top: 15px;
+      padding: 15px;
+      background: #e8f0fe;
+      border-radius: 14px;
+      border-left: 4px solid var(--success);
+      font-style: italic;
+      position: relative;
+    }
+    
+    .reply::before {
+      content: '"';
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      font-size: 24px;
+      color: var(--success);
+      opacity: 0.3;
+    }
+    
+    .notification {
+      padding: 18px;
+      border-radius: 14px;
+      margin: 18px 0;
+      text-align: center;
+      font-weight: 600;
+      animation: pulse 2s infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .notification.success {
+      background: linear-gradient(135deg, #4cc9f0, #4895ef);
+      color: white;
+    }
+    
+    .logo {
+      text-align: center;
+      margin-bottom: 25px;
+      position: relative;
+    }
+    
+    .logo i {
+      font-size: 48px;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 5px 10px rgba(67, 97, 238, 0.3));
+    }
+    
+    .role-selector {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 25px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      background: white;
+    }
+    
+    .role-option {
+      flex: 1;
+      text-align: center;
+      padding: 16px;
+      background: #f8fafc;
+      cursor: pointer;
+      border: 2px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .role-option:first-child {
+      border-radius: 16px 0 0 16px;
+      border-right: none;
+    }
+    
+    .role-option:last-child {
+      border-radius: 0 16px 16px 0;
+      border-left: none;
+    }
+    
+    .role-option.active {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      color: var(--gray);
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    
+    /* Chat bubble style */
+    .chat-container {
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    
+    .chat-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .chat-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    .chat-container::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+    }
+    
+    /* Floating action button */
+    .fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+      cursor: pointer;
+      z-index: 100;
+      animation: bounce 2s infinite;
+      transition: var(--transition);
+    }
+    
+    .fab:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 8px 20px rgba(67, 97, 238, 0.5);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0.5); }
+      70% { box-shadow: 0 0 0 12px rgba(76, 201, 240, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0); }
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-15px); }
+      60% { transform: translateY(-7px); }
+    }
+    
+    .shake {
+      animation: shake 0.5s;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+      20%, 40%, 60%, 80% { transform: translateX(8px); }
+    }
+    
+    /* Confetti effect */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary);
+      opacity: 0;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--dark);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .toast.show {
+      opacity: 1;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 576px) {
+      .container {
+        width: 95%;
+        padding: 25px 20px;
+      }
+      
+      input, textarea, select, button {
+        padding: 14px;
+      }
+      
+      .role-option {
+        padding: 14px;
+        font-size: 14px;
+      }
+      
+      .fab {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+      
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background animation -->
+  <div class="bg-animation" id="bg-animation"></div>
+  
+  <!-- Confetti container -->
+  <div id="confetti-container"></div>
+  
+  <!-- Toast notification -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toast-message"></span>
+  </div>
+  
+  <!-- Floating action button for new message -->
+  <div class="fab hidden" id="new-message-btn">
+    <i class="fas fa-plus"></i>
+  </div>
+  
+  <div class="container">
+    <!-- Login -->
+    <div id="login-section">
+      <div class="logo">
+        <i class="fas fa-comment-dots"></i>
+        <h2>Kotak Curhat BK</h2>
+        <p style="color: var(--gray); margin-top: 5px;">Konseling Online yang Aman dan Nyaman</p>
+      </div>
+      
+      <div class="role-selector">
+        <div class="role-option active" id="murid-option">
+          <i class="fas fa-user-graduate"></i>
+          <div>Murid</div>
+        </div>
+        <div class="role-option" id="guru-option">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <div>Guru BK</div>
+        </div>
+      </div>
+      
+      <!-- Form Login Murid -->
+      <div id="murid-login-fields">
+        <input type="text" id="nama-murid" placeholder="Nama (opsional)" />
+        <select id="kelas-murid">
+          <option value="" selected disabled>Pilih kelas (opsional)</option>
+          <option value="10 RPL 1">Kelas 10 RPL 1</option>
+          <option value="10 RPL 2">Kelas 10 RPL 2</option>
+          <option value="10 AK 1">Kelas 10 AK 1</option>
+          <option value="10 MP 1">Kelas 10 MP 1</option>
+          <option value="10 MP 2">Kelas 10 MP 2</option>
+          <option value="10 MP 3">Kelas 10 MP 3</option>
+          <option value="10 BR 1">Kelas 10 BR 1</option>
+          <option value="10 BR 2">Kelas 10 BR 2</option>
+          <option value="11 RPL 1">Kelas 11 RPL 1</option>
+          <option value="11 RPL 2">Kelas 11 RPL 2</option>
+          <option value="11 AK 1">Kelas 11 AK 1</option>
+          <option value="11 AK 2">Kelas 11 AK 2</option>
+          <option value="11 MP 2">Kelas 11 MP 1</option>
+          <option value="11 MP 2">Kelas 11 MP 2</option>
+          <option value="11 BR 1">Kelas 11 BR 1</option>
+          <option value="11 BR 2">Kelas 11 BR 2</option>
+          <option value="12 RPL 1">Kelas 12 RPL 1</option>
+          <option value="11 RPL 1">Kelas 11 RPL 2</option>
+          <option value="12 AK 1">Kelas 12 AK 1</option>
+          <option value="12 AK 2">Kelas 12 AK 2</option>
+          <option value="12 MP 1">Kelas 12 MP 1</option>
+          <option value="12 MP 2">Kelas 12 MP 2</option>
+          <option value="12 BR 1">Kelas 12 BR 1</option>
+          <option value="12 BR 2">Kelas 12 BR 2</option>
+        </select>
+      </div>
+      
+      <!-- Form Login Guru -->
+      <div id="password-field" class="hidden">
+        <input type="password" id="password" placeholder="Masukkan password guru" />
+        <small style="color: var(--gray); display: block; margin-top: -8px; margin-bottom: 15px;"></small>
+      </div>
+      
+      <button id="login-btn">
+        <i class="fas fa-sign-in-alt"></i> Masuk
+      </button>
+      
+      <div class="footer">
+        <i class="fas fa-lock"></i> Privasi terjamin · <i class="fas fa-heart"></i> Dibalas dengan peduli
+      </div>
+    </div>
+
+    <!-- Murid Section -->
+    <div id="murid-section" class="hidden">
+      <div class="logo">
+        <i class="fas fa-user-graduate"></i>
+        <h2>Kotak Curhat</h2>
+        <p style="color: var(--gray); margin-top: 5px;">Sampaikan isi hatimu dengan leluasa</p>
+      </div>
+      
+      <div id="user-info" style="text-align: center; margin-bottom: 20px;">
+        <p style="color: var(--primary); font-weight: 500;" id="user-greeting"></p>
+      </div>
+      
+      <div id="notif-murid" class="notification success hidden">
+        <i class="fas fa-bell"></i>
+        <span></span>
+      </div>
+      
+      <div id="curhat-form">
+        <textarea id="curhat" rows="5" placeholder="Tuliskan perasaan dan keluh kesahmu di sini... (Minimal 10 karakter)"></textarea>
+        <small id="char-count" style="color: var(--gray); text-align: right; display: block; margin-top: -10px; margin-bottom: 15px;">0/10</small>
+        
+        <button id="kirim-btn">
+          <i class="fas fa-paper-plane"></i> Kirim Curhatan
+        </button>
+      </div>
+      
+      <h3><i class="fas fa-history"></i> Riwayat Curhatan</h3>
+      <div class="chat-container" id="list-curhat-murid"></div>
+      
+      <button class="btn-outline" id="logout-murid">
+        <i class="fas fa-sign-out-alt"></i> Keluar
+      </button>
+    </div>
+
+    <!-- Guru Section -->
+    <div id="guru-section" class="hidden">
+      <div class="logo">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <h2>Daftar Curhatan Murid</h2>
+        <p style="color: var(--gray); margin-top: 5px;">Balas dengan bijak dan penuh perhatian</p>
+      </div>
+      
+      <div class="chat-container" id="list-curhat"></div>
+      
+      <button class="btn-outline" id="logout-guru">
+        <i class="fas fa-sign-out-alt"></i> Keluar
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Inisialisasi variabel global
+    let currentRole = 'murid';
+    let currentUser = null;
+    
+    // Buat background animation
+    function createBackgroundAnimation() {
+      const bgAnimation = document.getElementById('bg-animation');
+      const bubblesCount = 15;
+      
+      for (let i = 0; i < bubblesCount; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('bg-bubble');
+        
+        // Random properties
+        const size = Math.random() * 120 + 30;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const delay = Math.random() * 15;
+        
+        bubble.style.width = size + 'px';
+        bubble.style.height = size + 'px';
+        bubble.style.left = posX + '%';
+        bubble.style.top = posY + '%';
+        bubble.style.animationDelay = delay + 's';
+        
+        bgAnimation.appendChild(bubble);
+      }
+    }
+    
+    // Pilih role
+    function selectRole(role) {
+      currentRole = role;
+      const options = document.querySelectorAll('.role-option');
+      options.forEach(opt => opt.classList.remove('active'));
+      
+      if (role === 'murid') {
+        document.getElementById('murid-option').classList.add('active');
+        document.getElementById('password-field').classList.add('hidden');
+        document.getElementById('murid-login-fields').classList.remove('hidden');
+      } else {
+        document.getElementById('guru-option').classList.add('active');
+        document.getElementById('password-field').classList.remove('hidden');
+        document.getElementById('murid-login-fields').classList.add('hidden');
+      }
+    }
+    
+    // Confetti effect
+    function createConfetti() {
+      const confettiContainer = document.getElementById('confetti-container');
+      const colors = ['#4361ee', '#3a0ca3', '#4cc9f0', '#f72585', '#fca311'];
+      
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const size = Math.random() * 10 + 5;
+        const posX = Math.random() * window.innerWidth;
+        const duration = Math.random() * 3 + 2;
+        
+        confetti.style.width = size + 'px';
+        confetti.style.height = size + 'px';
+        confetti.style.backgroundColor = color;
+        confetti.style.left = posX + 'px';
+        confetti.style.top = '-10px';
+        confetti.style.opacity = '1';
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        
+        confettiContainer.appendChild(confetti);
+        
+        // Animate confetti
+        const animation = confetti.animate([
+          { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+          { transform: 'translateY(' + window.innerHeight + 'px) rotate(' + (Math.random() * 360) + 'deg)', opacity: 0 }
+        ], {
+          duration: duration * 1000,
+          easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+        });
+        
+        // Remove confetti after animation
+        animation.onfinish = () => {
+          confetti.remove();
+        };
+      }
+    }
+    
+    // Show toast notification
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      
+      toastMessage.textContent = message;
+      
+      // Set icon based on type
+      const icon = toast.querySelector('i');
+      if (type === 'success') {
+        icon.className = 'fas fa-check-circle';
+        toast.style.background = 'var(--success)';
+      } else if (type === 'error') {
+        icon.className = 'fas fa-exclamation-circle';
+        toast.style.background = 'var(--danger)';
+      } else if (type === 'warning') {
+        icon.className = 'fas fa-exclamation-triangle';
+        toast.style.background = 'var(--warning)';
+      }
+      
+      toast.classList.add('show');
+      
+      // Hide after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+    
+    // Event listeners setelah DOM siap
+    document.addEventListener('DOMContentLoaded', function() {
+      // Buat background animation
+      createBackgroundAnimation();
+      
+      // Role selector events
+      document.getElementById('murid-option').addEventListener('click', function() {
+        selectRole('murid');
+      });
+      
+      document.getElementById('guru-option').addEventListener('click', function() {
+        selectRole('guru');
+      });
+      
+      // Login event
+      document.getElementById('login-btn').addEventListener('click', login);
+      
+      // Karakter count untuk textarea
+      document.getElementById('curhat').addEventListener('input', function() {
+        const count = this.value.length;
+        document.getElementById('char-count').textContent = count + '/10';
+        
+        if (count >= 10) {
+          document.getElementById('kirim-btn').disabled = false;
+        } else {
+          document.getElementById('kirim-btn').disabled = true;
+        }
+      });
+      
+      // Kirim curhat event
+      document.getElementById('kirim-btn').addEventListener('click', kirimCurhat);
+      
+      // Logout events
+      document.getElementById('logout-murid').addEventListener('click', logout);
+      document.getElementById('logout-guru').addEventListener('click', logout);
+      
+      // New message FAB
+      document.getElementById('new-message-btn').addEventListener('click', function() {
+        document.getElementById('curhat').focus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      // Inisialisasi tampilan
+      selectRole('murid');
+      
+      // Nonaktifkan tombol kirim awal
+      document.getElementById('kirim-btn').disabled = true;
+    });
+
+    function login() {
+      if (currentRole === "guru") {
+        const password = document.getElementById("password").value;
+        if (password !== "1234") {
+          document.getElementById("password").classList.add('shake');
+          setTimeout(() => {
+            document.getElementById("password").classList.remove('shake');
+          }, 500);
+          showToast("Password salah! Coba dengan password default: 1234", "error");
+          return;
+        }
+      } else {
+        // Simpan info murid (jika diisi)
+        const nama = document.getElementById("nama-murid").value;
+        const kelas = document.getElementById("kelas-murid").value;
+        
+        currentUser = {
+          nama: nama || "Anonim",
+          kelas: kelas || "Tidak ditentukan"
+        };
+      }
+
+      document.getElementById("login-section").classList.add("hidden");
+      if (currentRole === "murid") {
+        document.getElementById("murid-section").classList.remove("hidden");
+        document.getElementById("new-message-btn").classList.remove("hidden");
+        
+        // Tampilkan salam untuk murid
+        document.getElementById("user-greeting").textContent = "Halo, " + currentUser.nama + " dari " + currentUser.kelas + "!";
+        
+        cekBalasan();
+        loadCurhatanMurid();
+        showToast("Berhasil masuk sebagai murid");
+      } else {
+        document.getElementById("guru-section").classList.remove("hidden");
+        loadCurhatan();
+        showToast("Berhasil masuk sebagai Guru BK");
+      }
+      
+      // Animasi masuk
+      document.querySelector('.container').style.animation = 'fadeIn 0.6s ease-out';
+    }
+
+    function logout() {
+      document.getElementById("login-section").classList.remove("hidden");
+      document.getElementById("murid-section").classList.add("hidden");
+      document.getElementById("guru-section").classList.add("hidden");
+      document.getElementById("new-message-btn").classList.add("hidden");
+      document.getElementById("password").value = "";
+      document.getElementById("nama-murid").value = "";
+      document.getElementById("kelas-murid").value = "";
+      
+      currentUser = null;
+      
+      // Animasi keluar
+      document.querySelector('.container').style.animation = 'fadeIn 0.6s ease-out';
+    }
+
+    function kirimCurhat() {
+      let teks = document.getElementById("curhat").value;
+      if (!teks.trim() || teks.length < 10) {
+        document.getElementById("curhat").classList.add('shake');
+        setTimeout(() => {
+          document.getElementById("curhat").classList.remove('shake');
+        }, 500);
+        showToast("Curhatan harus minimal 10 karakter!", "error");
+        return;
+      }
+
+      let data = JSON.parse(localStorage.getItem("curhatan")) || [];
+      data.push({ 
+        teks: teks, 
+        balasan: "", 
+        dibalas: false,
+        timestamp: new Date().toISOString(),
+        user: currentUser // Simpan info user jika ada
+      });
+      localStorage.setItem("curhatan", JSON.stringify(data));
+
+      // Animasi sukses
+      const button = document.getElementById("kirim-btn");
+      const originalText = button.innerHTML;
+      button.innerHTML = '<i class="fas fa-check"></i> Terkirim!';
+      button.style.background = 'linear-gradient(135deg, #4cc9f0, #4895ef)';
+      button.disabled = true;
+      
+      // Confetti effect
+      createConfetti();
+      showToast("Curhatan berhasil dikirim! Guru BK akan membalas segera.");
+      
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.style.background = '';
+        document.getElementById("curhat").value = "";
+        document.getElementById("char-count").textContent = "0/10";
+        loadCurhatanMurid();
+      }, 2000);
+    }
+
+    function loadCurhatan() {
+      let list = document.getElementById("list-curhat");
+      list.innerHTML = "";
+      let data = JSON.parse(localStorage.getItem("curhatan")) || [];
+      
+      if (data.length === 0) {
+        list.innerHTML = '<div class="message"><p style="text-align:center;color:var(--gray);"><i class="fas fa-inbox" style="font-size: 40px; margin-bottom: 10px;"></i><br>Belum ada curhatan dari murid</p></div>';
+        return;
+      }
+
+      data.forEach((item, index) => {
+        let date = new Date(item.timestamp);
+        let formattedDate = date.toLocaleDateString('id-ID', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        
+        // Info pengirim jika ada
+        const userInfo = item.user ? 
+          '<small style="color:var(--primary); display: block; margin-bottom: 8px;">' +
+            '<i class="fas fa-user"></i> ' + item.user.nama + ' (Kelas ' + item.user.kelas + ')' +
+          '</small>' : '';
+        
+        let div = document.createElement("div");
+        div.classList.add("message");
+        div.innerHTML = userInfo +
+          '<p><i class="fas fa-quote-left" style="color:var(--primary);"></i> ' + item.teks + '</p>' +
+          '<small style="color:var(--gray);"><i class="far fa-clock"></i> ' + formattedDate + '</small>' +
+          '<div class="reply"><strong><i class="fas fa-reply"></i> Balasan:</strong> ' + (item.balasan || "Belum ada balasan") + '</div>' +
+          '<textarea id="reply-' + index + '" rows="2" placeholder="Tulis balasan...">' + (item.balasan || "") + '</textarea>' +
+          '<button onclick="balas(' + index + ')"><i class="fas fa-paper-plane"></i> Balas</button>' +
+          '<button class="btn-danger" onclick="hapusCurhat(' + index + ')"><i class="fas fa-trash"></i> Hapus</button>';
+        list.appendChild(div);
+      });
+    }
+
+    function loadCurhatanMurid() {
+      let list = document.getElementById("list-curhat-murid");
+      list.innerHTML = "";
+      let data = JSON.parse(localStorage.getItem("curhatan")) || [];
+      
+      if (data.length === 0) {
+        list.innerHTML = '<div class="message"><p style="text-align:center;color:var(--gray);"><i class="fas fa-inbox" style="font-size: 40px; margin-bottom: 10px;"></i><br>Belum ada curhatan</p></div>';
+        return;
+      }
+
+      data.forEach((item, index) => {
+        let date = new Date(item.timestamp);
+        let formattedDate = date.toLocaleDateString('id-ID', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        
+        let div = document.createElement("div");
+        div.classList.add("message");
+        div.innerHTML = 
+          '<p><i class="fas fa-quote-left" style="color:var(--primary);"></i> ' + item.teks + '</p>' +
+          '<small style="color:var(--gray);"><i class="far fa-clock"></i> ' + formattedDate + '</small>' +
+          '<div class="reply"><strong><i class="fas fa-reply"></i> Balasan:</strong> ' + (item.balasan || "Belum ada balasan") + '</div>' +
+          '<button class="btn-danger" onclick="hapusCurhat(' + index + ')"><i class="fas fa-trash"></i> Hapus</button>';
+        list.appendChild(div);
+      });
+    }
+
+    function balas(index) {
+      let data = JSON.parse(localStorage.getItem("curhatan")) || [];
+      let replyText = document.getElementById("reply-" + index).value;
+      if (!replyText.trim()) {
+        document.getElementById("reply-" + index).classList.add('shake');
+        setTimeout(() => {
+          document.getElementById("reply-" + index).classList.remove('shake');
+        }, 500);
+        showToast("Balasan tidak boleh kosong!", "error");
+        return;
+      }
+
+      data[index].balasan = replyText;
+      data[index].dibalas = true;
+      localStorage.setItem("curhatan", JSON.stringify(data));
+      
+      // Animasi sukses
+      const button = event.currentTarget;
+      const originalText = button.innerHTML;
+      button.innerHTML = '<i class="fas fa-check"></i> Terkirim!';
+      button.style.background = 'linear-gradient(135deg, #4cc9f0, #4895ef)';
+      
+      showToast("Balasan berhasil dikirim!");
+      
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.style.background = '';
+        loadCurhatan();
+      }, 1500);
+    }
+
+    function hapusCurhat(index) {
+      if (!confirm("Apakah kamu yakin ingin menghapus curhatan ini?")) return;
+
+      let data = JSON.parse(localStorage.getItem("curhatan")) || [];
+      data.splice(index, 1);
+      localStorage.setItem("curhatan", JSON.stringify(data));
+      loadCurhatan();
+      loadCurhatanMurid();
+      showToast("Curhatan berhasil dihapus");
+    }
+
+    function cekBalasan() {
+      let data = JSON.parse(localStorage.getItem("curhatan")) || [];
+      let notif = document.getElementById("notif-murid");
+
+      // Cek apakah ada curhatan yang sudah dibalas
+      let adaBalasanBaru = false;
+      for (let item of data) {
+        if (item.dibalas && item.balasan) {
+          adaBalasanBaru = true;
+          break;
+        }
+      }
+
+      if (adaBalasanBaru) {
+        notif.classList.remove("hidden");
+        notif.querySelector('span').textContent = "Ada balasan baru dari Guru BK, silakan cek curhatanmu!";
+      } else {
+        notif.classList.add("hidden");
+      }
+    }
+  </script>
+</body>
+</html>

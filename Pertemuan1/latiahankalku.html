@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kalkulator Sederhana</title>
+</head>
+<body>
+  <h1><i>Kalkulator Sederhana</i></h1>
+
+   <label>Angka pertama:</label><br>
+   <input type="number" id="angka1" value="0"><br><br>
+
+   <label>Angka kedua:</label><br>
+   <input type="number" id="angka2" value="0"><br><br>
+
+   <button onclick="hitung()">Hitung</button>
+
+   <h3>Hasil:</h3>
+   <p id="penjumlahan"></p>
+   <p id="pengurangan"></p>
+   <p id="perkalian"></p>
+   <p id="pembagian"></p>
+
+  <script>
+    function hitung() {
+       let a = parseFloat(document.getElementById("angka1").value);
+       let b = parseFloat(document.getElementById("angka2").value);
+
+       document.getElementById("penjumlahan").innerHTML = "Penjumlahan: " + (a + b);
+       document.getElementById("pengurangan").innerHTML = "Pengurangan: " + (a - b);
+       document.getElementById("perkalian").innerHTML = "Perkalian: " + (a * b);
+       document.getElementById("pembagian").innerHTML = "Pembagian: " + (a / b);
+    }
+  </script>
+</body>
+</html>

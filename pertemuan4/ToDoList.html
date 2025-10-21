@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Sederhana</title>
+    <style>
+        /* Warna dasar */
+        :root {
+            --bg-color: #e3f2fd;
+            --container-color: #ffffff;
+            --text-color: #333;
+            --primary: #64b5f6;
+            --edit: #ffb74d;
+            --delete: #ef5350;
+            --done: #81c784;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--container-color);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            outline: none;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+
+        .add-btn { background: var(--primary); }
+        .edit-btn { background: var(--edit); }
+        .delete-btn { background: var(--delete); }
+        .done-btn { background: var(--done); }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: var(--container-color);
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--primary);
+            transition: 0.3s;
+        }
+
+        li.done {
+            text-decoration: line-through;
+            opacity: 0.6;
+            border-left-color: var(--done);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="input-section">
+            <input type="text" id="taskInput" placeholder="Tulis tugas...">
+            <button class="add-btn" onclick="addTask()">Tambah</button>
+        </div>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        function addTask() {
+            let input = document.getElementById("taskInput");
+            let task = input.value.trim();
+
+            if (task === "") {
+                alert("Tugas tidak boleh kosong!");
+                return;
+            }
+
+            let li = document.createElement("li");
+            li.innerHTML = `
+                <span onclick="toggleDone(this)">${task}</span>
+                <div class="btn-group">
+                    <button class="done-btn" onclick="toggleDone(this.parentElement.previousElementSibling)">Selesai</button>
+                    <button class="edit-btn" onclick="editTask(this)">Edit</button>
+                    <button class="delete-btn" onclick="deleteTask(this)">Hapus</button>
+                </div>
+            `;
+            document.getElementById("taskList").appendChild(li);
+            input.value = "";
+        }
+
+        function toggleDone(element) {
+            let li = element.closest("li");
+            li.classList.toggle("done");
+        }
+
+        function editTask(button) {
+            let li = button.closest("li");
+            let span = li.querySelector("span");
+            let newTask = prompt("Edit tugas:", span.textContent);
+
+            if (newTask !== null && newTask.trim() !== "") {
+                span.textContent = newTask;
+            }
+        }
+
+        function deleteTask(button) {
+            if (confirm("Yakin mau hapus tugas ini?")) {
+                button.closest("li").remove();
+            }
+        }
+    </script>
+</body>
+</html>

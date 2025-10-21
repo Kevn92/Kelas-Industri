@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operator Logika</title>
+</head>
+<body>
+    <script>
+// ===========================================================================
+// LATIHAN CEK KATEGORI NILAI (tanpa if / ternary)
+//----------------------------------------------------------------------------
+// Diketahui nilai siswa:
+// - Tugas 88
+// - Proyek = 78
+// - UTS 84
+// - UAS 90
+//
+// Hitung nilai akhir dengan bobot berikut:
+// - Tugas: 30%
+// - Proyek: 20%
+// - UTS: 25%
+// - UAS: 25%
+//
+// Tanpa menggunakan if / ternary:
+// Tentukan apakah:
+// - Nilai akhir masuk kategori "Sangat Baik" (>= 90)
+// - Nilai akhir masuk kategori "Baik" (>= 80 dan < 90)
+// - Nilai akhir masuk kategori "Cukup" (>= 70 dan < 80)
+// - Nilai akhir "Kurang dari Cukup" (<70)
+//
+// Cetak semua hasil sebagai boolean
+//==============================================================
+
+        var nilaiTugas = 89;
+        var nilaiProjek = 85;
+        var nilaiUTS = 95;  
+        var nilaiUAS = 98;
+
+        var nilai = ( nilaiTugas * 0.3) + (nilaiProjek * 0.2) + (nilaiUTS * 0.25) + (nilaiUAS * 0.25);
+        var kkm = 75;
+
+        var sangatBaik = nilai >= 90;
+        var baik = (nilai >= 80) && (nilai < 90);
+        var cukup = (nilai >= 70) && (nilai < 80);
+        var kurangDariCukup = nilai < 70;
+
+        var hasil = (nilai >= kkm) ? "Lulus" : "Tidak Lulus";
+
+        console.log("Nilai Akhir: " + nilai);
+        console.log("Kategori nilai sangat baik: " + sangatBaik);
+        console.log("Kategori nilai baik: " + baik);
+        console.log("Kategori nilai cukup: " + cukup);
+        console.log("Kategori nilai kurang dari cukup: " + kurangDariCukup);
+
+    </script>
+</body>
+</html>

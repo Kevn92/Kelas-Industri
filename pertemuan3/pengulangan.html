@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Status Angkot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .beroperasi {
+            color: green;
+        }
+        .service {
+            color: orange;
+        }
+        .rusak {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Latihan 1 - Pengulangan</h2>
+    <div id="statusAngkot"></div>
+
+    <script>
+        let jumlahAngkot = 15;
+        let statusDiv = document.getElementById("statusAngkot");
+
+        for (let no = 1; no <= jumlahAngkot; no++) {
+            let status = "";
+            let className = "";
+
+            if ([1, 2, 3, 4, 5, 7, 11, 13].includes(no)) {
+                status = "tersedia";
+                className = "beroperasi";
+            } else if (no === 6 || no === 9) {
+                status = "sedang service";
+                className = "service";
+            } else {
+                status = "tidak tersedia";
+                className = "rusak";
+            }
+
+            statusDiv.innerHTML += `<p class="${className}">Angkot no ${no} ${status}</p>`;
+        }
+    </script>
+    
+</body>
+</html>

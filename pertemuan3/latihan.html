@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Kategori Bilangan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 4px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Daftar Kategori Bilangan</h1>
+    <div id="daftar"></div>
+
+    <script>
+        let daftar = document.getElementById("daftar");
+
+        for (let i = 1; i <= 20; i++) {
+            let kategori = "";
+
+            if (i % 2 !== 0) {
+                kategori = "Ganjil";
+            } else {
+                if (i % 4 === 0) {
+                    kategori = "Genap dan Kelipatan 4";
+                } else {
+                    kategori = "Genap";
+                }
+            }
+
+            let p = document.createElement("p");
+            p.textContent = `Bilangan ${i}: ${kategori}`;
+            daftar.appendChild(p);
+        }
+    </script>
+
+</body>
+</html>
